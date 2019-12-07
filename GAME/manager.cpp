@@ -25,37 +25,36 @@
 
 // Our state
 bool show_demo_window = true;
-bool show_another_window = false;
+bool show_another_window = true;
 ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-CScene* CManager::m_pScene = NULL;
-//CScene* g_Scene = NULL;
-CPlayer* player;
-CModelAnimation* animModel;
-
-
+CScene*			CManager::m_pScene = NULL;
+CPlayer*		CManager::m_pPlayer;
 
 void CManager::Init()
 {
 	// Rendererの初期化
 	CRenderer::Init();
 
-	// Inputの初期化
+	// input初期化
 	CInput::Init();
 
 	// Sceneの初期化
 	m_pScene = new CScene();
 	m_pScene->Init();
+
+	// 
+	m_pPlayer = new CPlayer();
+	m_pPlayer = CManager::GetScene()->GetGameObject<CPlayer>(LAYER_3DMODELS);
 	
 }
 
 void CManager::Uninit()		// Initの中身と逆に終了記述して！
 {
-	// Cleanup 
+	// ImGui Cleanup 
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
-
 
 	// Sceneのシュウリョウショリ
 	m_pScene->Uninit();
@@ -67,12 +66,11 @@ void CManager::Uninit()		// Initの中身と逆に終了記述して！
 
 void CManager::Update()
 {
-	// Input入力
-	CInput::Update();
-
 	// SceneのUpdate
 	m_pScene->Update();
 
+	// 
+	CInput::Update();
 }
 
 void CManager::Draw()
@@ -134,11 +132,14 @@ void CManager::Gui_Show()
 	// 3. Show another simple window.
 	if (show_another_window)
 	{
-		
+		int mouseX, mouseY;
 		ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
 		ImGui::Text("Player position show");
 
-		ImGui::Text("position X : %.1f", player->GetPositionX());
+		ImGui::Text("position X : %.1f", m_pPlayer->GetPositionX());
+		ImGui::Text("position Y : %.1f", m_pPlayer->GetPositionY());
+		ImGui::Text("position Z : %.1f", m_pPlayer->GetPositionZ());
+
 
 		if (ImGui::Button("Close Me"))
 			show_another_window = false;

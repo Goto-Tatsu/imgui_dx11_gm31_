@@ -18,6 +18,9 @@
 
 #include "scene.h"
 
+#define SPEED	(0.05f);
+#define ANGLE	(0.2f);
+
 static unsigned int g_Frame;
 static bool g_bAttack;
 
@@ -29,6 +32,7 @@ void CPlayer::Init()
 	m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_Scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
+	m_Quaternion = XMQuaternionIdentity();
 	g_bAttack = false;
 }
 
@@ -57,9 +61,11 @@ void CPlayer::Update()
 
 	// à⁄ìÆ
 	if (CInput::GetKeyPress('A')) {		// ç∂
+		m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
 		m_Position.x -= 0.5f;
 	}
 	if (CInput::GetKeyPress('D')) {		// âE
+		m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
 		m_Position.x += 0.5f;
 	}
 	if (CInput::GetKeyPress('W')) {		// ëOï˚

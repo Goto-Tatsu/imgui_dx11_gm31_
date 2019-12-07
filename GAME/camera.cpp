@@ -38,11 +38,11 @@ void CCamera::Uninit()
 
 void CCamera::Update()
 {
-	//camRotationMatrix = XMMatrixRotationRollPitchYaw(camPitch, camYaw, 0);
-	//camAt = XMVector3TransformCoord(DefaultForward, camRotationMatrix);
-	//
-	//XMMATRIX RotateTempMatrix;
-	//RotateTempMatrix = XMMatrixRotationY(camYaw);
+	camRotationMatrix = XMMatrixRotationRollPitchYaw(camPitch, camYaw, 0);
+	camAt = XMVector3TransformCoord(DefaultForward, camRotationMatrix);
+	
+	XMMATRIX RotateTempMatrix;
+	RotateTempMatrix = XMMatrixRotationY(camYaw);
 
 
 	// ˆÚ“®
@@ -72,7 +72,6 @@ void CCamera::Update()
 
 	
 }
-
 
 
 void CCamera::Draw()

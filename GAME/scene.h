@@ -83,7 +83,8 @@ public:
 		AddGameObject<CCamera>(LAYER_CAMERA);
 		
 		// Field
-		AddGameObject<CField>("asset/field004.tga", LAYER_3DMODELS);
+		AddGameObject<CField>(LAYER_3DMODELS);
+		//AddGameObject<CField>("asset/field004.tga", LAYER_3DMODELS);
 		
 		// Player,Enemy,Ball
 		AddGameObject<CPlayer>(LAYER_3DMODELS);

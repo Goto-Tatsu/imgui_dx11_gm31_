@@ -1,40 +1,25 @@
-#ifndef FIELD_H_
-#define FIELD_H_
+#pragma once
 
-class CField:public CGameObject	// CGameObjectÇ©ÇÁåpè≥
+
+class CField : public CGameObject
 {
 private:
 
-	ID3D11Buffer* m_pVertexBuffer = NULL;
-	ID3D11Buffer* m_pIndexBuffer = NULL;
-	CTexture* mTexture = NULL;
-	
-	static const int FIELD_X = 11;
-	static const int FIELD_Z = 11;
-	static const int GRID_LENGTH = 1;
-
-	VERTEX_3D* m_pVertex;
-
-	unsigned short* m_pIndex;
+	ID3D11Buffer* m_VertexBuffer = NULL;
+	ID3D11Buffer* m_IndexBuffer = NULL;
+	CTexture* m_Texture = NULL;
 
 
-	int mGridX;
-	int mGridZ;
-	int mGridLength;
+	static const int FIELD_X = 100;
+	static const int FIELD_Z = 100;
 
-	int mVertexCount;
-	int mIndexCount;
-	int mPrimitiveCount;
+	VERTEX_3D m_Vertex[FIELD_X * FIELD_Z];
 
 
 public:
-	void Init(void);
+	void Init();
+	void Uninit();
+	void Update();
+	void Draw();
 
-	void Init(const char* TexName);
-	void Uninit(void);
-	void Update(void) {};
-	void Draw(void);
-	float GetHeight(XMFLOAT3 Position);
 };
-
-#endif // !FIELD_H_

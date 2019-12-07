@@ -3,7 +3,6 @@
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
-#include "input.h"
 #include "gameobject.h"
 #include "polygon.h"
 #include "camera.h"

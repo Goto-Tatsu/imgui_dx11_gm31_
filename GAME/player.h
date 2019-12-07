@@ -12,6 +12,7 @@ private:
 	XMFLOAT3 m_Scale;
 
 	CModelAnimation* m_pModelAnimation;
+	XMVECTOR m_Quaternion;
 
 public:
 	void Init();

@@ -18,6 +18,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 
 HWND g_Window;
+HINSTANCE g_hInstance;
 
 void IMGUI_Setup(void);
 //void IMGUI_Update(void);
@@ -26,6 +27,11 @@ void IMGUI_Setup(void);
 HWND GetWindow()
 {
 	return g_Window;
+}
+
+HINSTANCE GetHInstance()
+{
+	return g_hInstance;
 }
 
 //=============================================================================
@@ -48,6 +54,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		CLASS_NAME,
 		NULL
 	};
+
+	// hInstanceŠi”[
+	g_hInstance = hInstance;
 
 	// ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX‚Ì“o˜^
 	RegisterClassEx(&wcex);

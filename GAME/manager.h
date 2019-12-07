@@ -1,12 +1,15 @@
 #pragma once
 
 class CScene;	// ‘O•ûéŒ¾
+class CDirectInput8;
+class CPlayer;
 
 class CManager
 {
 
 private:
 	static CScene* m_pScene;
+	static CPlayer* m_pPlayer;
 
 public:
 	static void Init();
