@@ -1,3 +1,10 @@
 GAME/.vs/
 GAME/Debug/
 GAME/x64/Debug/
+GAME/Assimp/
+myInput8/myInput8.cpp
+myInput8/myInput8.h
+NKC_DInput/NKC_DInput.cpp
+NKC_DInput/NKC_DInput.h
+myInput8.lzh
+NKC_DInput.lzh
