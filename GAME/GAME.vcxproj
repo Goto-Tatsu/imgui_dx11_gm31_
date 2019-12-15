@@ -150,6 +150,7 @@
     <ClInclude Include="ball.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="control.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="field.h" />
     <ClInclude Include="gameobject.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="imgui_manager.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />
@@ -170,12 +172,14 @@
     <ClInclude Include="polygon.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="scene.h" />
+    <ClInclude Include="shader2D.h" />
     <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="control.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="field.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -184,6 +188,7 @@
     <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="imgui_manager.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
@@ -192,6 +197,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="shader2D.cpp" />
     <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -201,24 +207,45 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <FxCompile Include="pixelShader2D.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="vertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).cso</ObjectFileOutput>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <FxCompile Include="vertexShader2D.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="VS3D_to_field.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="VS3D_to_model.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\directxtex_desktop_win10.2019.10.17.1\build\native\directxtex_desktop_win10.targets" Condition="Exists('packages\directxtex_desktop_win10.2019.10.17.1\build\native\directxtex_desktop_win10.targets')" />
-  </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\directxtex_desktop_win10.2019.10.17.1\build\native\directxtex_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\directxtex_desktop_win10.2019.10.17.1\build\native\directxtex_desktop_win10.targets'))" />
-  </Target>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

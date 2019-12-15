@@ -20,8 +20,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 HWND g_Window;
 HINSTANCE g_hInstance;
 
-void IMGUI_Setup(void);
-//void IMGUI_Update(void);
 
 
 HWND GetWindow()

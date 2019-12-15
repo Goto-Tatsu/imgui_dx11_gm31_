@@ -39,8 +39,8 @@ using namespace DirectX;
 #include <assimp/matrix4x4.h>
 /* ================================ */
 
-#define SCREEN_WIDTH	(1400)			// ウインドウの幅
-#define SCREEN_HEIGHT	(824)			// ウインドウの高さ
+#define SCREEN_WIDTH	(1600)			// ウインドウの幅
+#define SCREEN_HEIGHT	(900)			// ウインドウの高さ
 
 #define SAFE_RELEASE(p)	{ if(p){ (p)->Release(); (p) = NULL; } }
 

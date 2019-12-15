@@ -1,7 +1,6 @@
 #pragma once
 
 class CScene;	// ‘O•ûéŒ¾
-class CDirectInput8;
 class CPlayer;
 
 class CManager
