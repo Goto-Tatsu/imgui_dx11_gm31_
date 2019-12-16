@@ -128,11 +128,11 @@
     <ClInclude Include="scene.h">
       <Filter>ソース ファイル\scene</Filter>
     </ClInclude>
-    <ClInclude Include="shader2D.h">
-      <Filter>ソース ファイル\shader\2D</Filter>
-    </ClInclude>
     <ClInclude Include="control.h">
       <Filter>ソース ファイル\system</Filter>
+    </ClInclude>
+    <ClInclude Include="shader3D_model.h">
+      <Filter>ソース ファイル\shader\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -199,11 +199,11 @@
     <ClCompile Include="texture.cpp">
       <Filter>ソース ファイル\resources</Filter>
     </ClCompile>
-    <ClCompile Include="shader2D.cpp">
-      <Filter>ソース ファイル\shader\2D</Filter>
-    </ClCompile>
     <ClCompile Include="control.cpp">
       <Filter>ソース ファイル\system</Filter>
+    </ClCompile>
+    <ClCompile Include="shader3D_model.cpp">
+      <Filter>ソース ファイル\shader\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,16 +213,10 @@
     <FxCompile Include="vertexShader.hlsl">
       <Filter>ソース ファイル\HLSL\original</Filter>
     </FxCompile>
-    <FxCompile Include="pixelShader2D.hlsl">
-      <Filter>ソース ファイル\HLSL\2D</Filter>
-    </FxCompile>
-    <FxCompile Include="vertexShader2D.hlsl">
-      <Filter>ソース ファイル\HLSL\2D</Filter>
-    </FxCompile>
-    <FxCompile Include="VS3D_to_model.hlsl">
+    <FxCompile Include="pixelShader3D_model.hlsl">
       <Filter>ソース ファイル\HLSL\3D</Filter>
     </FxCompile>
-    <FxCompile Include="VS3D_to_field.hlsl">
+    <FxCompile Include="vertexShader3D_model.hlsl">
       <Filter>ソース ファイル\HLSL\3D</Filter>
     </FxCompile>
   </ItemGroup>

@@ -1,21 +1,27 @@
 #include <list>
 
+// system
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
-#include "gameobject.h"
 #include "input.h"
-#include "polygon.h"
+
+// gameobject
+#include "gameobject.h"
 #include "camera.h"
 #include "field.h"
 
+// shader
+#include "shader3D_model.h"
+
+// resource
 #include "model.h"		// 前に"renderer.h"が必要
 #include "modelanimation.h"
 #include "player.h"
 #include "enemy.h"
-#include "bullet.h"
 #include "ball.h"
 
+// scene
 #include "scene.h"
 
 #define SPEED	(0.05f)
@@ -23,8 +29,12 @@
 
 void CBall::Init()
 {
+	m_pShader3D = new Shader3D_Model();
+	m_pShader3D->Init("vertexShader3D_model.cso", "pixelShader3D_model.cso");
+
 	m_pModel = new CModel();
 	m_pModel->Load("asset/model/miku_01.obj");
+	
 	m_Position = XMFLOAT3(0.0f, 1.0f, -5.0f);
 	m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_Scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
@@ -38,6 +48,9 @@ void CBall::Uninit(void)
 {
 	m_pModel->Unload();
 	delete m_pModel;
+
+	m_pShader3D->Uninit();
+	delete m_pShader3D;
 }
 
 
@@ -89,18 +102,49 @@ void CBall::Update()
 		m_Position.z -= SPEED;
 	}
 
+
 }
 
 
 void CBall::Draw()
 {
 	// 更新内容を反映
-	XMMATRIX world;
-	world = XMMatrixScaling(m_Scale.x, m_Scale.y, m_Scale.z);
-	world *= XMMatrixRotationQuaternion(m_Quaternion);
-	world *= XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z);
-	CRenderer::SetWorldMatrix(&world);
+	m_World = XMMatrixScaling(m_Scale.x, m_Scale.y, m_Scale.z);
+	m_World *= XMMatrixRotationQuaternion(m_Quaternion);
+	m_World *= XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z);
+	CRenderer::SetWorldMatrix(&m_World);
 
+	m_pCamera = CManager::GetScene()->GetGameObject<CCamera>(LAYER_CAMERA);
+	XMMATRIX world, view, proj, WVP;
+	world = m_World;
+	view = m_pCamera->GetViewMatrix();			// Tranposeしてない！
+	proj = m_pCamera->GetProjectionMatrix();	// Tranposeしてない！
+	WVP = m_World * view * proj;
+
+	XMFLOAT4X4 mtxWVP;
+	DirectX::XMStoreFloat4x4(&mtxWVP, WVP);
+	m_pShader3D->SetWorldViewProjectionMatrix(&mtxWVP);
+
+	//////////////////////////////////////////////////////
+// ワールド変換行列逆行列
+	XMMATRIX mtxWIT;
+	mtxWIT = XMMatrixInverse(nullptr, m_World);	// 逆行列
+	mtxWIT = XMMatrixTranspose(mtxWIT);			// 転置
+	XMFLOAT4X4 witf;
+	DirectX::XMStoreFloat4x4(&witf, mtxWIT);
+	m_pShader3D->SetWorldInverseTranspose(&witf);
+	// このあとシェーダーレジスターにセットスル。
+	///////////////////////////////////////////////////////
+
+	XMFLOAT4X4 mtxWorld;
+	DirectX::XMStoreFloat4x4(&mtxWorld, world);
+	m_pShader3D->SetWorldTranspose(&mtxWorld);
+	m_pShader3D->GetCameraPos(m_pCamera->GetPosition());
+
+	m_pShader3D->Set();
+
+
+	// 描画と非描画処理
 	////////////////////// new /////////////////////////////////
 	CCamera* pCamera;
 	pCamera = CManager::GetScene()->GetGameObject<CCamera>(LAYER_CAMERA);

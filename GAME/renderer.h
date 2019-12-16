@@ -11,6 +11,14 @@ struct VERTEX_3D
 	XMFLOAT2 TexCoord;
 };
 
+struct VERTEX_3D_NORMALMAP
+{
+	XMFLOAT3 Position;
+	XMFLOAT3 Binormal;
+	XMFLOAT3 Tangent;
+	XMFLOAT3 Normal;
+	XMFLOAT2 TexCoord;
+};
 
 // êFç\ë¢ëÃ
 struct COLOR
@@ -120,6 +128,7 @@ public:
 	static void SetVertexBuffers(ID3D11Buffer* VertexBuffer);
 	static void SetIndexBuffer(ID3D11Buffer* IndexBuffer);
 	static void SetTexture(CTexture* Texture);
+	static void SetTexture(UINT slot, CTexture* Texture);
 	static void DrawIndexed(unsigned int IndexCount, unsigned int StartIndexLocation, int BaseVertexLocation);
 
 	static ID3D11Device* GetDevice(void) { return m_D3DDevice; }

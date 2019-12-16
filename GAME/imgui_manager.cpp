@@ -3,7 +3,7 @@
 #include "renderer.h"
 
 // Ã“Iƒƒ“ƒo•Ï”‰Šú‰»
-bool ImguiManager::m_show_demo_window = true;
+bool ImguiManager::m_show_demo_window = false;
 bool ImguiManager::m_show_another_window = true;
 
 void ImguiManager::Init()

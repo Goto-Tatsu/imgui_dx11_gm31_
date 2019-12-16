@@ -10,8 +10,8 @@ private:
 	CTexture* m_Texture = NULL;
 
 
-	static const int FIELD_X = 100;
-	static const int FIELD_Z = 100;
+	static const int FIELD_X = 32;
+	static const int FIELD_Z = 32;
 
 	VERTEX_3D m_Vertex[FIELD_X * FIELD_Z];
 

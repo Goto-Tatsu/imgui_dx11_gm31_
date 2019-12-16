@@ -1,8 +1,6 @@
 #ifndef CAMERA_H_
 #define CAMERA_H_
 
-class CPlayer;
-
 class CCamera : public CGameObject	// CGameObjectから継承
 {
 private:
@@ -18,20 +16,15 @@ private:
 	XMMATRIX	m_InvViewMatrix;		// ビュー逆行列変換用格納行列
 	XMMATRIX	m_ProjectionMatrix;		// プロジェクション行列
 
-	XMMATRIX camRotationMatrix;
-	XMMATRIX groundWorld;
-
-	float moveLeftRight;
-	float moveBackForward;
-
-	float camYaw;
-	float camPitch;
-
 public:
 	void Init();
 	void Uninit();
 	void Update();
 	void Draw();
+
+	XMMATRIX GetViewMatrix(void) { return m_ViewMatrix; };
+	XMMATRIX GetProjectionMatrix(void) { return m_ProjectionMatrix; };
+
 
 	XMFLOAT3					m_Position;	// カメラの位置(座標)
 	XMFLOAT3					m_Rotation;	// カメラの回転要素

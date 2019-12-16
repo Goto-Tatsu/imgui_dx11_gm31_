@@ -82,25 +82,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	ShowWindow(g_Window, nCmdShow);
 	UpdateWindow(g_Window);
 
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	// Setup Dear ImGui context //////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	IMGUI_CHECKVERSION();																		//
-	ImGui::CreateContext();																		//
-	ImGuiIO& io = ImGui::GetIO(); (void)io;														//
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls		//
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls		//
-																								//
-	// Setup Dear ImGui style																	//
-	ImGui::StyleColorsDark();																	//
-	//ImGui::StyleColorsClassic();																//
-																								//
-	// Setup Platform/Renderer bindings															//
-	ImGui_ImplWin32_Init(g_Window);																//
-	ImGui_ImplDX11_Init(CRenderer::GetDevice(), CRenderer::GetDeviceContext());					//
-	//////////////////////////////////////////////////////////////////////////////////////////////
-
-
 	//フレームカウント初期化
 	DWORD dwExecLastTime;
 	DWORD dwCurrentTime;
@@ -136,9 +117,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 				// 更新処理
 				CManager::Update();
-
-				// IMGUIの設定を更新
-				CManager::Gui_Show();
 
 				// 描画処理
 				CManager::Draw();

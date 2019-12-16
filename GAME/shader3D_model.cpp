@@ -1,17 +1,41 @@
-#include "main.h"
-#include "renderer.h"
-#include "shader2D.h"
+#define _CRT_SECURE_NO_WARNINGS
+#define NOMINMAX
+
+#include <list>
 #include <io.h>
+// system
+#include "main.h"
+#include "manager.h"
+#include "renderer.h"
+#include "input.h"
 
-void CShader2D::Init(const char* VertexShader, const char* PixelShader)
+// gameobject
+#include "gameobject.h"
+#include "camera.h"
+#include "field.h"
+
+// shader
+#include "shader3D_model.h"
+
+// resource
+#include "model.h"		// 前に"renderer.h"が必要
+#include "modelanimation.h"
+#include "player.h"
+#include "enemy.h"
+#include "ball.h"
+
+// scene
+#include "scene.h"
+
+
+void Shader3D_Model::Init(const char* vertex_shader, const char* pixel_shader)
 {
-
 	// 頂点シェーダ生成
 	{
 		FILE* file;
 		long int fsize;
 
-		file = fopen(VertexShader, "rb");
+		file = fopen(vertex_shader, "rb");
 		fsize = _filelength(_fileno(file));
 		unsigned char* buffer = new unsigned char[fsize];
 		fread(buffer, fsize, 1, file);
@@ -26,10 +50,10 @@ void CShader2D::Init(const char* VertexShader, const char* PixelShader)
 		{
 			D3D11_INPUT_ELEMENT_DESC layout[] =
 			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 4 * 3, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 4 * 6, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 4 * 10, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+				{ "POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,		0,	0,			D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "NORMAL",		0,	DXGI_FORMAT_R32G32B32_FLOAT,		0,	4 * 3,		D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "COLOR",		0,	DXGI_FORMAT_R32G32B32A32_FLOAT,		0,	4 * 6,		D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "TEXCOORD",	0,	DXGI_FORMAT_R32G32_FLOAT,			0,	4 * 10,		D3D11_INPUT_PER_VERTEX_DATA, 0 }
 			};
 
 			UINT numElements = ARRAYSIZE(layout);
@@ -51,7 +75,7 @@ void CShader2D::Init(const char* VertexShader, const char* PixelShader)
 		FILE* file;
 		long int fsize;
 
-		file = fopen(PixelShader, "rb");
+		file = fopen(pixel_shader, "rb");
 		fsize = _filelength(_fileno(file));
 		unsigned char* buffer = new unsigned char[fsize];
 		fread(buffer, fsize, 1, file);
@@ -73,29 +97,22 @@ void CShader2D::Init(const char* VertexShader, const char* PixelShader)
 		hBufferDesc.MiscFlags = 0;
 		hBufferDesc.StructureByteStride = sizeof(float);
 
-		hBufferDesc.ByteWidth = sizeof(CONSTANT);
+		hBufferDesc.ByteWidth = sizeof(CONSTANT3D_MODEL);
 		CRenderer::GetDevice()->CreateBuffer(&hBufferDesc, NULL, &m_ConstantBuffer);
 	}
 }
 
-
-
-
-void CShader2D::Uninit()
+void Shader3D_Model::Uninit(void)
 {
 	if (m_ConstantBuffer)	m_ConstantBuffer->Release();
-
 	if (m_VertexLayout)		m_VertexLayout->Release();
 	if (m_VertexShader)		m_VertexShader->Release();
 	if (m_PixelShader)		m_PixelShader->Release();
+
 }
 
-
-
-
-void CShader2D::Set()
+void Shader3D_Model::Set(void)
 {
-
 	// シェーダ設定
 	CRenderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
 	CRenderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
@@ -106,14 +123,11 @@ void CShader2D::Set()
 
 
 	// 定数バッファ更新
-	CRenderer::GetDeviceContext()->UpdateSubresource(m_ConstantBuffer, 0, NULL, &m_Constant, 0, 0);
+	CRenderer::GetDeviceContext()->UpdateSubresource(m_ConstantBuffer, 0, NULL, &m_Constant3D, 0, 0);
 
 
 	// 定数バッファ設定
 	CRenderer::GetDeviceContext()->VSSetConstantBuffers(0, 1, &m_ConstantBuffer);
 
 	CRenderer::GetDeviceContext()->PSSetConstantBuffers(0, 1, &m_ConstantBuffer);
-
-	//m_Constant.value += 0.5;
 }
-

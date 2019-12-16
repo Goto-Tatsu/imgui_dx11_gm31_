@@ -1,7 +1,8 @@
 #pragma once
 
+class Shader3D_Model;
 
-class CBall :public CGameObject
+class CBall :	public CGameObject
 {
 private:
 	XMFLOAT3 m_Position;
@@ -10,6 +11,11 @@ private:
 
 	CModel* m_pModel;
 	XMVECTOR m_Quaternion;
+
+	Shader3D_Model* m_pShader3D;
+	CCamera* m_pCamera;
+	
+	XMMATRIX m_World;
 
 public:
 	CBall() {};

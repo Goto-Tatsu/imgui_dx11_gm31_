@@ -25,6 +25,8 @@ public:
 	virtual void Update() {};
 	virtual void Draw() {};
 
+	XMFLOAT3 GetPosition(void) { return m_Position; };
+
 	void SetPosition(XMFLOAT3 position) {
 		m_Position = position;
 	};

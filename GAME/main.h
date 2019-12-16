@@ -39,10 +39,12 @@ using namespace DirectX;
 #include <assimp/matrix4x4.h>
 /* ================================ */
 
-#define SCREEN_WIDTH	(1600)			// ウインドウの幅
-#define SCREEN_HEIGHT	(900)			// ウインドウの高さ
+// 
+#include "imgui_manager.h"
 
-#define SAFE_RELEASE(p)	{ if(p){ (p)->Release(); (p) = NULL; } }
+#define SCREEN_WIDTH	(1280)			// ウインドウの幅
+#define SCREEN_HEIGHT	(780)			// ウインドウの高さ
+
 
 HWND GetWindow();
 HINSTANCE GetHInstance();

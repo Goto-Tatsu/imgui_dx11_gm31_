@@ -6,8 +6,6 @@
 #include "texture.h"
 
 
-
-
 void CField::Init()
 {
 

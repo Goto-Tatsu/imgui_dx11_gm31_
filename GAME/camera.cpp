@@ -15,9 +15,6 @@ void CCamera::Init()
 	//m_CamForward = XMVectorSet(0.f, 0.f, 1.f, 0.f);
 	//m_CamRight = XMVectorSet(1.f, 0.f, 0.f, 0.f);
 	
-	moveLeftRight = 0.0f;
-	moveBackForward = 0.0f;
-
 	m_Position = XMFLOAT3(0.0f, 10.0f, -15.0f);
 	m_Rotation = XMFLOAT3(0.5f, 0.0f, 0.0f);
 
@@ -38,39 +35,42 @@ void CCamera::Uninit()
 
 void CCamera::Update()
 {
-	camRotationMatrix = XMMatrixRotationRollPitchYaw(camPitch, camYaw, 0);
-	camAt = XMVector3TransformCoord(DefaultForward, camRotationMatrix);
-	
-	XMMATRIX RotateTempMatrix;
-	RotateTempMatrix = XMMatrixRotationY(camYaw);
-
-
 	// 移動
 	if (CInput::GetKeyPress('A')) {		// 左
-		m_Position.x -= 0.5f;
+		m_Position.x -= 0.1f;
 	}
 	if (CInput::GetKeyPress('D')) {		// 右
-		m_Position.x += 0.5f;
+		m_Position.x += 0.1f;
 	}
 	if (CInput::GetKeyPress('W')) {		// 前方
-		m_Position.z += 0.5f;
+		m_Position.z += 0.1f;
 	}
 	if (CInput::GetKeyPress('S')) {		// 後方
-		m_Position.z -= 0.5f;
+		m_Position.z -= 0.1f;
 	}
 
 	// 旋回
 	if (CInput::GetKeyPress(VK_RIGHT)) {
 		m_Rotation.y += 0.01f;
-		//m_fCameraAngle += 0.01f;
 	}
 	else if (CInput::GetKeyPress(VK_LEFT)) {
 		m_Rotation.y -= 0.01f;
-		//m_fCameraAngle -= 0.01f;
 	}
-	
+	else if (CInput::GetKeyPress(VK_UP)) {
+		m_Rotation.x -= 0.01f;
+	}
+	else if (CInput::GetKeyPress(VK_DOWN)) {
+		m_Rotation.x += 0.01f;
+	}
 
-	
+	// 上昇下降
+	if (CInput::GetKeyPress(VK_LSHIFT)) {		// 左
+		m_Position.y -= 0.5f;
+	}
+	else if (CInput::GetKeyPress(VK_RSHIFT)) {		// 左
+		m_Position.y += 0.5f;
+	}
+
 }
 
 
@@ -99,14 +99,10 @@ void CCamera::Draw()
 
 	CRenderer::SetViewMatrix(&m_ViewMatrix);	// ビュー行列を渡してあげる
 
-
-
 	// プロジェクションマトリクス設定
 	m_ProjectionMatrix = XMMatrixPerspectiveFovLH(1.0f, dxViewport.Width / dxViewport.Height, 1.0f, 1000.0f);
 
 	CRenderer::SetProjectionMatrix(&m_ProjectionMatrix);
-
-
 
 }
 

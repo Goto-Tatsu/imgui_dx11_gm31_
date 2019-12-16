@@ -3,6 +3,8 @@
 
 #include <typeinfo>	// typeidを使用するため
 #include <vector>	// vectorを使用するため
+#include "main.h"
+
 
 #define ENEMY_MAX	(1)
 
@@ -32,23 +34,6 @@ public:
 	template<typename ClassName>ClassName* AddGameObject(int Layer) {
 		ClassName* object = new ClassName();
 		object->Init();
-		m_GameObject[Layer].push_back(object);
-		return object;
-	}
-
-	// Textureのファイルパス付テンプレート
-	template<typename ClassName, typename TexName> ClassName* AddGameObject(TexName* TexName, int Layer) {
-		ClassName* object = new ClassName();
-		object->Init(TexName);
-		m_GameObject[Layer].push_back(object);
-		return object;
-	}
-
-
-	// Modelのファイルパスと、Position設定付きテンプレート
-	template<typename ClassName, typename ModelName, typename posX, typename posY, typename posZ > ClassName* AddGameObject(ModelName* ModelName, int Layer) {
-		ClassName* object = new ClassName();
-		object->Init(ModelName, posX, posY, posZ);
 		m_GameObject[Layer].push_back(object);
 		return object;
 	}
@@ -83,8 +68,7 @@ public:
 		AddGameObject<CCamera>(LAYER_CAMERA);
 		
 		// Field
-		AddGameObject<CField>(LAYER_3DMODELS);
-		//AddGameObject<CField>("asset/field004.tga", LAYER_3DMODELS);
+		AddGameObject<CField>(LAYER_BG);
 		
 		// Player,Enemy,Ball
 		AddGameObject<CPlayer>(LAYER_3DMODELS);
@@ -94,7 +78,6 @@ public:
 		AddGameObject<CBall>(LAYER_3DMODELS);
 		
 		// 2Dpolygon
-		AddGameObject<CPolygon>("asset/number.tga", LAYER_2DPOLYGONS);
 
 	}
 

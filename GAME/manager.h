@@ -1,14 +1,12 @@
 #pragma once
 
 class CScene;	// ‘O•ûéŒ¾
-class CPlayer;
 
 class CManager
 {
 
 private:
 	static CScene* m_pScene;
-	static CPlayer* m_pPlayer;
 
 public:
 	static void Init();
@@ -17,5 +15,4 @@ public:
 	static void Draw();
 
 	static CScene* GetScene();
-	static void Gui_Show();
 };
