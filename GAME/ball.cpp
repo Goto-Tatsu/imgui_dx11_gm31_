@@ -6,6 +6,7 @@
 #include "renderer.h"
 #include "input.h"
 
+
 // gameobject
 #include "gameobject.h"
 #include "camera.h"
@@ -26,6 +27,8 @@
 
 #define SPEED	(0.05f)
 #define ANGLE	(0.2f)
+
+static bool visible_flag = true;
 
 void CBall::Init()
 {
@@ -102,7 +105,6 @@ void CBall::Update()
 		m_Position.z -= SPEED;
 	}
 
-
 }
 
 
@@ -158,4 +160,13 @@ void CBall::Draw()
 		m_pModel->Draw();
 	}
 
+	{
+		ImGui::Begin("Ball Position");
+
+		ImGui::DragFloat("ball posX", &m_Position.x, SPEED);            // Edit 1 float using a slider from 0.0f to 1.0f
+		ImGui::DragFloat("ball posY", &m_Position.y, SPEED);            // Edit 1 float using a slider from 0.0f to 1.0f
+		ImGui::DragFloat("ball posZ", &m_Position.z, SPEED);            // Edit 1 float using a slider from 0.0f to 1.0f
+
+		ImGui::End();
+	}
 }

@@ -1,7 +1,7 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-class CScene;
+class Shader3D_Player;
 
 class CPlayer:public CGameObject
 {
@@ -11,8 +11,14 @@ private:
 	XMFLOAT3 m_Rotation;
 	XMFLOAT3 m_Scale;
 
+	CModel* m_pModel;
 	CModelAnimation* m_pModelAnimation;
 	XMVECTOR m_Quaternion;
+
+	Shader3D_Player* m_pShader3D;
+	CCamera* m_pCamera;
+
+	XMMATRIX m_World;
 
 public:
 	void Init();

@@ -8,8 +8,6 @@
 
 void CCamera::Init()
 {
-	m_fCameraAngle = 0.0f;
-
 	//m_DefaultForward = XMVectorSet(0.f, 0.f, 1.f, 0.f);
 	//m_DefaultRight = XMVectorSet(1.f, 0.f, 0.f, 0.f);
 	//m_CamForward = XMVectorSet(0.f, 0.f, 1.f, 0.f);
@@ -82,7 +80,7 @@ void CCamera::Draw()
 	dxViewport.Width = (float)(m_Viewport.right - m_Viewport.left);
 	dxViewport.Height = (float)(m_Viewport.bottom - m_Viewport.top);
 	dxViewport.MinDepth = 0.0f;
-	dxViewport.MaxDepth = 1.0f;
+	dxViewport.MaxDepth = 100.0f;
 	dxViewport.TopLeftX = (float)m_Viewport.left;
 	dxViewport.TopLeftY = (float)m_Viewport.top;
 
@@ -103,6 +101,16 @@ void CCamera::Draw()
 	m_ProjectionMatrix = XMMatrixPerspectiveFovLH(1.0f, dxViewport.Width / dxViewport.Height, 1.0f, 1000.0f);
 
 	CRenderer::SetProjectionMatrix(&m_ProjectionMatrix);
+
+	{
+		ImGui::Begin("Camera Move");
+
+		ImGui::Text("X:%.2f", m_Position.x); ImGui::SameLine();
+		ImGui::Text("Y:%.2f", m_Position.y); ImGui::SameLine();
+		ImGui::Text("Z:%.2f", m_Position.z);
+
+		ImGui::End();
+	}
 
 }
 

@@ -71,7 +71,7 @@ public:
 		AddGameObject<CField>(LAYER_BG);
 		
 		// Player,Enemy,Ball
-		AddGameObject<CPlayer>(LAYER_3DMODELS);
+		//AddGameObject<CPlayer>(LAYER_3DMODELS);
 		for (int i = 0; i < ENEMY_MAX; i++) {
 			AddGameObject<CEnemy>(LAYER_3DMODELS);
 		}

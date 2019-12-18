@@ -11,7 +11,7 @@ struct MouseCapture
 		int x, y;
 	};
 
-	FLOAT Wheel = 0;
+	float Wheel = 0;
 	POINT CursorPt = POINT(-10000, -10000);
 };
 
@@ -24,7 +24,7 @@ struct KeyInput
 	BYTE aKeyboard[KEY_ARRAY_NUM];
 	BYTE aKeyboardOld[KEY_ARRAY_NUM];
 
-	FLOAT Wheel = 0.0f;
+	float Wheel = 0.0f;
 	POINT CursorPt = POINT(-10000, -10000);	//現在の位置
 	POINT LastPt = POINT(-10000, -10000);	//1つ前の位置
 	POINT LClickPt = POINT(-10000, -10000);	//Lクリック位置
@@ -49,35 +49,35 @@ struct KeyInput
 struct CameraCtrl
 {
 
-	DirectX::XMVECTOR At = DirectX::XMVectorSet(0, 5, 0, 0);
-	FLOAT RotH = DirectX::XM_PI;
-	FLOAT RotV = -0.5f;
-	FLOAT Dist = 50.0f;
+	XMVECTOR At = XMVectorSet(0, 5, 0, 0);
+	float RotH = XM_PI;
+	float RotV = -0.5f;
+	float Dist = 50.0f;
 
-	FLOAT SpeedRotH = 1.5f;
-	FLOAT SpeedRotV = 1.0f;
-	FLOAT LimitRotV = 89.0f / 180.0f * DirectX::XM_PI;
-	FLOAT DistMin = 0.5f;
-	FLOAT DistMax = 200.0f;
-	FLOAT SpeedDist = 20.0f;
-	FLOAT SpeedMove = 20.0f;
-	FLOAT SpeedMouseRot = 0.01f;
-	FLOAT SpeedWheelMove = 3.0f;
-	FLOAT SpeedMouseSlide = 0.15f;
+	float SpeedRotH = 1.5f;
+	float SpeedRotV = 1.0f;
+	float LimitRotV = 89.0f / 180.0f * XM_PI;
+	float DistMin = 0.5f;
+	float DistMax = 200.0f;
+	float SpeedDist = 20.0f;
+	float SpeedMove = 20.0f;
+	float SpeedMouseRot = 0.01f;
+	float SpeedWheelMove = 3.0f;
+	float SpeedMouseSlide = 0.15f;
 
-	DirectX::XMVECTOR IniAt = DirectX::XMVectorSet(0, 5, 0, 0);
-	FLOAT IniRotH = DirectX::XM_PI;
-	FLOAT IniRotV = -0.5f;
-	FLOAT IniDist = 50.0f;
+	XMVECTOR IniAt = XMVectorSet(0, 5, 0, 0);
+	float IniRotH = XM_PI;
+	float IniRotV = -0.5f;
+	float IniDist = 50.0f;
 
 	bool bCharaMode = false;
-	DirectX::XMVECTOR vCharaPos = DirectX::XMVectorSet(0, 0, 0, 1);
-	DirectX::XMVECTOR vCharaRot = DirectX::XMVectorSet(0, 0, 0, 0);
+	XMVECTOR vCharaPos = XMVectorSet(0, 0, 0, 1);
+	XMVECTOR vCharaRot = XMVectorSet(0, 0, 0, 0);
 
 	void Reset();
 	void Ctrl(const KeyInput& key, FLOAT elapsed_time_sec);
 
-	DirectX::XMMATRIX GetViewMatrix();
+	XMMATRIX GetViewMatrix();
 
 };
 

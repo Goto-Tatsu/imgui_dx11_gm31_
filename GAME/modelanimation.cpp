@@ -84,8 +84,8 @@ void CModelAnimation::Load()
 	unsigned int texture;
 
 	// Assimp‚Ì\‘¢‘Ì‚ð—p‚¢‚Ä
-	m_Scene[PLAYER_WALK] = aiImportFile("asset/model/Player/machine_Walk.fbx", aiProcess_Triangulate);
-	m_Scene[PLAYER_ATTACK] = aiImportFile("asset/model/Player/machine_Attack.fbx", aiProcess_Triangulate);
+	m_Scene[PLAYER_WALK] = aiImportFile("asset/MODEL/Player/machine_Walk.fbx", aiProcess_Triangulate);
+	m_Scene[PLAYER_ATTACK] = aiImportFile("asset/MODEL/Player/machine_Attack.fbx", aiProcess_Triangulate);
 
 	m_MeshNum = m_Scene[PLAYER_WALK]->mNumMeshes;
 	m_Mesh = new MESH[m_MeshNum];

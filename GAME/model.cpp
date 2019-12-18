@@ -240,7 +240,7 @@ void CModel::LoadObj( const char *FileName, MODEL *Model )
 			fscanf( file, "%s", str );
 
 			char path[256];
-			strcpy( path, "asset/" );
+			strcpy( path, "asset/MODEL/" );
 			strcat( path, str );
 
 			LoadMaterial( path, &materialArray, &materialNum );
@@ -459,7 +459,7 @@ void CModel::LoadMaterial( const char *FileName, MODEL_MATERIAL **MaterialArray,
 			fscanf( file, "%s", str );
 
 			char path[256];
-			strcpy( path, "asset/model/" );
+			strcpy( path, "asset/MODEL/" );
 			strcat( path, str );
 
 			strcat( materialArray[ mc ].TextureName, path );
